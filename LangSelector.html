@@ -1,0 +1,62 @@
+<html>
+	<head>
+		<title>Language Selector</title>
+	</head>
+		<script>
+			var langs = ["Deutsch","español","français","italiano","Nederlands","polski","русский","svenska","English(simple)","Esperanto","euskara","galego"];
+			var showarr= ["Deutsch","español","français","italiano","Nederland"];
+			function getPosition(elementToFind) 
+			{	var i;
+				for (i = 0; i < showarr.length; i++) 
+				{	if (showarr[i] == elementToFind) 
+						return i;
+				}
+				return -1; 
+			}
+			var temp = -2;
+			function changearr(i)
+			{	var langselected = langs[i];
+				 document.getElementById('alllink').style.display = 'none';
+				var found = getPosition(langs[i]);
+				var removed;
+				if(i != temp)
+				{
+					if(found==-1)
+					{	removed= showarr.splice(4,1);
+						showarr.splice(0,0,langs[i]);
+					}
+					else if(found>0)
+					{	removed= showarr.splice(found, 1);
+						showarr.splice(0,0,removed);
+					}
+					temp = i;
+				}
+				
+				print();
+			}
+			function print()
+			{	var div1 = document.getElementById("somelink");
+				var div2 = document.getElementById("alllink");
+				div1.innerHTML = div2.innerHTML ="";
+				for(var i=0; i<showarr.length; i++)
+					div1.innerHTML+=("<a href='#'>"+showarr[i]+"</a><br>");
+				for(var i=0; i<langs.length; i++)
+					div2.innerHTML+=("<a href='javascript:changearr("+i+")'>"+langs[i]+"</a><br>");
+			}	
+			function toggle()
+			{	var status = document.getElementById('alllink');
+				status.style.display=='block' ? status.style.display='none': status.style.display='block';
+			}
+		</script>
+		
+	<body onload="print()">
+			<h1><center>Universal Language Selector</center></h1>
+			<div id="somelink" style="height:120px;width:200px;font-size:18px;"></div><br>
+			
+			<div id="but1" style="height:30px;font-size:16px;line-height:30px;vertical-align:middle;text-align:center;width:120px;cursor:pointer;border:2px solid #8b8989"
+				onclick="toggle()">More Languages</div>
+			<div id="alllink" style="height:300px;width:200px;display:none;font-size:18px;"></div><br>
+			
+	</body>
+</html>
+		
